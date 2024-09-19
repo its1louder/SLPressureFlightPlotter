@@ -71,11 +71,11 @@ def main():
         plot_data(pdatf, tdatf, datestmp)
 
         # this line to save the data will only work on local deployment, not on streamlit cloud
-        pressure_file, temp_file = save_data(pdatf, tdatf, datestmp)
-        st.markdown(get_binary_file_downloader_html(pressure_file, 'Download Pressure Data'), unsafe_allow_html=True)
+        #pressure_file, temp_file = save_data(pdatf, tdatf, datestmp)
+        #st.markdown(get_binary_file_downloader_html(pressure_file, 'Download Pressure Data'), unsafe_allow_html=True)
         #st.write (pdatf.tail(10))
         st.write (pdatf)
-        st.markdown(get_binary_file_downloader_html(temp_file, 'Download Temperature Data'), unsafe_allow_html=True)
+        #st.markdown(get_binary_file_downloader_html(temp_file, 'Download Temperature Data'), unsafe_allow_html=True)
         #st.write (tdatf.tail(10))
         st.write (tdatf)
 
