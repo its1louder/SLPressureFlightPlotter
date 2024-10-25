@@ -87,6 +87,4 @@ def main(url=URL):
 
 
 if __name__ == "__main__":
-    try:
-        main(URL)
-    except:
+    main(URL)
