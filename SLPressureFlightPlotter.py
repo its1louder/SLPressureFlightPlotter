@@ -7,6 +7,7 @@ import datetime as dt
 import base64
 import os
 
+URL = "https://asp-interface.arc.nasa.gov/API/binary_packet_data/N809NA/PRESSURE?Start=0"
 style.use('bmh')
 SEPCHAR = "\\x0c"
 
@@ -56,9 +57,9 @@ def get_binary_file_downloader_html(bin_file, file_label='File'):
     href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{os.path.basename(bin_file)}">{file_label}</a>'
     return href
 
-def main():
+def main(url=URL):
     st.title("Pod Temperature and Pressure Plotter")
-    url = st.text_input('Enter the URL to scrape data from', "https://asp-interface.arc.nasa.gov/API/binary_packet_data/N806NA/PRESSURE?Start=0")
+    url = st.text_input('Enter the URL to scrape data from',url)
     year = st.number_input('Enter the year to filter data', 2000, 2100, 2044)
     if st.button('Scrape and Plot Data'):
         msglst = scrape_data(url)
@@ -67,7 +68,7 @@ def main():
         pdatf=pdatf[pdatf['time'] < dt.datetime(year, 1, 1)]
         tdatf=tdatf[tdatf['time'] < dt.datetime(year, 1, 1)]
         
-        datestmp = pdatf.iloc[0,0].strftime("%Y-%m-%d")
+        datestmp = pdatf.iloc[0,0].strftime("%Y-%m-%d") 
         plot_data(pdatf, tdatf, datestmp)
 
         # this line to save the data will only work on local deployment, not on streamlit cloud
@@ -80,4 +81,7 @@ def main():
         st.write (tdatf)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main(URL)
+    except:
+        print('failed to load data from %s. Are you sure there is data there?' %URL)
