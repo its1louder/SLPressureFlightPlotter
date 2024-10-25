@@ -90,4 +90,4 @@ if __name__ == "__main__":
     try:
         main(URL) 
     except Exception as error:
-        print('Caught this error: ' + repr(error))
+        st.exception(error)
