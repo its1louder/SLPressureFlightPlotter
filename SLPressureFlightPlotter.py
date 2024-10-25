@@ -87,4 +87,7 @@ def main(url=URL):
 
 
 if __name__ == "__main__":
-    main(URL)
+    try:
+        main(URL) 
+    except Exception as error:
+        print('Caught this error: ' + repr(error))
