@@ -82,8 +82,9 @@ def main(url=URL):
         except: 
             # print error capture to streamlit, not print
             errmsg = 'failed to load data from %s. Are you sure there is data there?' %url
-            st.write(errmsg+msglst)
-            print(errmsg+msglst)
+            st.write(errmsg)
+            st.write(msglst)
+            #print(errmsg,msglst)
             raise (errmsg)
 
 
