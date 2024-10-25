@@ -67,24 +67,26 @@ def main(url=URL):
 
         pdatf=pdatf[pdatf['time'] < dt.datetime(year, 1, 1)]
         tdatf=tdatf[tdatf['time'] < dt.datetime(year, 1, 1)]
-        
-        datestmp = pdatf.iloc[0,0].strftime("%Y-%m-%d") 
-        plot_data(pdatf, tdatf, datestmp)
+        try:
+            datestmp = pdatf.iloc[0,0].strftime("%Y-%m-%d") 
+            plot_data(pdatf, tdatf, datestmp)
 
-        # this line to save the data will only work on local deployment, not on streamlit cloud
-        #pressure_file, temp_file = save_data(pdatf, tdatf, datestmp)
-        #st.markdown(get_binary_file_downloader_html(pressure_file, 'Download Pressure Data'), unsafe_allow_html=True)
-        #st.write (pdatf.tail(10))
-        st.write (pdatf)
-        #st.markdown(get_binary_file_downloader_html(temp_file, 'Download Temperature Data'), unsafe_allow_html=True)
-        #st.write (tdatf.tail(10))
-        st.write (tdatf)
+            # this line to save the data will only work on local deployment, not on streamlit cloud
+            #pressure_file, temp_file = save_data(pdatf, tdatf, datestmp)
+            #st.markdown(get_binary_file_downloader_html(pressure_file, 'Download Pressure Data'), unsafe_allow_html=True)
+            #st.write (pdatf.tail(10))
+            st.write (pdatf)
+            #st.markdown(get_binary_file_downloader_html(temp_file, 'Download Temperature Data'), unsafe_allow_html=True)
+            #st.write (tdatf.tail(10))
+            st.write (tdatf)
+        except: 
+            # print error capture to streamlit, not print
+            errmsg = 'failed to load data from %s. Are you sure there is data there?' %url
+            st.write(errmsg+msglst)
+            print(errmsg+msglst)
+
 
 if __name__ == "__main__":
     try:
         main(URL)
     except:
-        # print error capture to streamlit, not print
-        errmsg = 'failed to load data from %s. Are you sure there is data there?' %URL
-        st.write(errmsg)
-        print(errmsg)
