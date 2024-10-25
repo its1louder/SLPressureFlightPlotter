@@ -84,4 +84,7 @@ if __name__ == "__main__":
     try:
         main(URL)
     except:
-        print('failed to load data from %s. Are you sure there is data there?' %URL)
+        # print error capture to streamlit, not print
+        errmsg = 'failed to load data from %s. Are you sure there is data there?' %URL
+        st.write(errmsg)
+        print(errmsg)
